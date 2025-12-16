@@ -4,6 +4,7 @@
   import { verifyLogin } from '$lib/services/supabase';
   import Input from '$lib/components/ui/Input.svelte';
   import Button from '$lib/components/ui/Button.svelte';
+  import SEO from '$lib/components/SEO.svelte';
 
   let email = $state('');
   let password = $state('');
@@ -62,9 +63,12 @@
   }
 </script>
 
-<svelte:head>
-  <title>Login - Movie App</title>
-</svelte:head>
+<SEO
+  title="Login - FilmShelf"
+  description="Login to your FilmShelf account to access your personal watchlist and movie recommendations."
+  url="https://filmshelf-ayush.netlify.app/login"
+  keywords="login, sign in, movie account, user login"
+/>
 
 <div class="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-12">
   <div class="w-full max-w-md mx-auto">

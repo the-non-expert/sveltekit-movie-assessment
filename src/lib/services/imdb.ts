@@ -21,30 +21,48 @@ function transformImdbTitle(title: ImdbApiTitle): Movie {
 
 /**
  * Fetch popular/trending movies
- * @param pageToken - Pagination token (optional)
+ * Fetches multiple pages to get a larger dataset
  */
-export async function fetchPopularMovies(pageToken?: string): Promise<Movie[]> {
+export async function fetchPopularMovies(): Promise<Movie[]> {
   try {
-    const params = new URLSearchParams({
-      types: 'MOVIE',
-      sortBy: 'SORT_BY_POPULARITY',
-      sortOrder: 'ASC',
-      ...(pageToken && { pageToken })
-    });
+    const allMovies: Movie[] = [];
+    let pageToken: string | undefined = undefined;
+    const pagesToFetch = 5; // Fetch 5 pages (~250 movies)
 
-    const response = await fetch(`${IMDB_BASE_URL}/titles?${params.toString()}`);
+    for (let i = 0; i < pagesToFetch; i++) {
+      const params = new URLSearchParams({
+        types: 'MOVIE',
+        sortBy: 'SORT_BY_POPULARITY',
+        sortOrder: 'ASC',
+        limit: '50'
+      });
 
-    if (!response.ok) {
-      throw new Error(`IMDB API error: ${response.statusText}`);
+      if (pageToken) {
+        params.set('pageToken', pageToken);
+      }
+
+      const response = await fetch(`${IMDB_BASE_URL}/titles?${params.toString()}`);
+
+      if (!response.ok) {
+        break; // Stop if we get an error
+      }
+
+      const data = await response.json();
+
+      if (data.titles && Array.isArray(data.titles)) {
+        const movies = data.titles.map(transformImdbTitle);
+        allMovies.push(...movies);
+      }
+
+      // Check if there's a next page
+      if (data.nextPageToken) {
+        pageToken = data.nextPageToken;
+      } else {
+        break; // No more pages
+      }
     }
 
-    const data = await response.json();
-
-    if (!data.titles || !Array.isArray(data.titles)) {
-      return [];
-    }
-
-    return data.titles.map(transformImdbTitle);
+    return allMovies;
   } catch (error) {
     console.error('Error fetching popular movies:', error);
     throw error;
@@ -63,27 +81,43 @@ export async function searchMovies(query: string): Promise<Movie[]> {
   }
 
   try {
-    // Fetch a larger set of popular movies to search through
-    const params = new URLSearchParams({
-      types: 'MOVIE',
-      sortBy: 'SORT_BY_POPULARITY',
-      sortOrder: 'ASC',
-      limit: '200' // Get more movies for better search results
-    });
+    // Fetch multiple pages of popular movies to build a search index
+    const allMovies: Movie[] = [];
+    let pageToken: string | undefined = undefined;
+    const pagesToFetch = 5; // Fetch 5 pages (~250 movies)
 
-    const response = await fetch(`${IMDB_BASE_URL}/titles?${params.toString()}`);
+    for (let i = 0; i < pagesToFetch; i++) {
+      const params = new URLSearchParams({
+        types: 'MOVIE',
+        sortBy: 'SORT_BY_POPULARITY',
+        sortOrder: 'ASC',
+        limit: '50'
+      });
 
-    if (!response.ok) {
-      throw new Error(`IMDB API error: ${response.statusText}`);
+      if (pageToken) {
+        params.set('pageToken', pageToken);
+      }
+
+      const response = await fetch(`${IMDB_BASE_URL}/titles?${params.toString()}`);
+
+      if (!response.ok) {
+        break; // Stop if we get an error
+      }
+
+      const data = await response.json();
+
+      if (data.titles && Array.isArray(data.titles)) {
+        const movies = data.titles.map(transformImdbTitle);
+        allMovies.push(...movies);
+      }
+
+      // Check if there's a next page
+      if (data.nextPageToken) {
+        pageToken = data.nextPageToken;
+      } else {
+        break; // No more pages
+      }
     }
-
-    const data = await response.json();
-
-    if (!data.titles || !Array.isArray(data.titles)) {
-      return [];
-    }
-
-    const allMovies = data.titles.map(transformImdbTitle);
 
     // Filter movies client-side by search query
     const searchLower = query.toLowerCase();

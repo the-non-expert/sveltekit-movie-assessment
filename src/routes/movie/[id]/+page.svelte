@@ -5,6 +5,7 @@
   import MovieDetails from '$lib/components/MovieDetails.svelte';
   import Button from '$lib/components/ui/Button.svelte';
   import Spinner from '$lib/components/ui/Spinner.svelte';
+  import SEO from '$lib/components/SEO.svelte';
   import { fetchMovieDetails, fetchMovieCredits } from '$lib/services/imdb';
   import type { Movie } from '$lib/types/movie';
 
@@ -61,9 +62,21 @@
   });
 </script>
 
-<svelte:head>
-  <title>{movie ? movie.title : 'Loading...'} - Movie App</title>
-</svelte:head>
+{#if movie}
+  <SEO
+    title="{movie.title} ({movie.releaseYear}) - FilmShelf"
+    description="{movie.overview || `Watch ${movie.title} (${movie.releaseYear}). Rating: ${movie.rating}/10. ${movie.genres.join(', ')}.`}"
+    image={movie.posterUrl}
+    url="https://filmshelf-ayush.netlify.app/movie/{movieId}"
+    type="article"
+    keywords="{movie.title}, {movie.genres.join(', ')}, movie, film, {movie.releaseYear}"
+  />
+{:else}
+  <SEO
+    title="Loading Movie - FilmShelf"
+    description="Discover and track your favorite movies with FilmShelf"
+  />
+{/if}
 
 <div class="min-h-screen bg-gray-950">
   {#if loading}

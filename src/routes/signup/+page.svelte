@@ -6,6 +6,7 @@
   import { fetchGenres } from '$lib/services/imdb';
   import Input from '$lib/components/ui/Input.svelte';
   import Button from '$lib/components/ui/Button.svelte';
+  import SEO from '$lib/components/SEO.svelte';
   import type { Genre } from '$lib/types/movie';
 
   let name = $state('');
@@ -87,9 +88,12 @@
   });
 </script>
 
-<svelte:head>
-  <title>Sign Up - Movie App</title>
-</svelte:head>
+<SEO
+  title="Sign Up - FilmShelf"
+  description="Create your free FilmShelf account to start building your personal movie watchlist and discover amazing films."
+  url="https://filmshelf-ayush.netlify.app/signup"
+  keywords="sign up, register, create account, join, movie account"
+/>
 
 <div class="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-12">
   <div class="w-full max-w-md mx-auto">

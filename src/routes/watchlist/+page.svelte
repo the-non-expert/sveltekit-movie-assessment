@@ -4,6 +4,7 @@
   import { authStore, watchlistStore } from '$lib/stores';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
   import Button from '$lib/components/ui/Button.svelte';
+  import SEO from '$lib/components/SEO.svelte';
   import type { Movie } from '$lib/types/movie';
 
   const auth = $derived($authStore);
@@ -46,9 +47,12 @@
   });
 </script>
 
-<svelte:head>
-  <title>My Watchlist - Movie App</title>
-</svelte:head>
+<SEO
+  title="My Watchlist - FilmShelf"
+  description="Manage your personal movie watchlist. Keep track of movies you want to watch and never miss a great film."
+  url="https://filmshelf-ayush.netlify.app/watchlist"
+  keywords="watchlist, movie list, saved movies, movie tracker"
+/>
 
 <div class="min-h-screen bg-gray-950">
   <div class="container mx-auto px-4 py-8">

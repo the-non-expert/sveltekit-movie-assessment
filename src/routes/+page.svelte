@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import FilterPanel from '$lib/components/FilterPanel.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
+  import SEO from '$lib/components/SEO.svelte';
   import { filterStore } from '$lib/stores';
   import { fetchPopularMovies, searchMovies } from '$lib/services/imdb';
   import type { Movie } from '$lib/types/movie';
@@ -110,6 +111,13 @@
     // Initial load handled by $effect above
   });
 </script>
+
+<SEO
+  title="FilmShelf - Discover and Track Your Favorite Movies"
+  description="Explore thousands of movies with advanced filters by genre, rating, and year. Create your personal watchlist and never miss a great film. Your ultimate movie discovery platform."
+  url="https://filmshelf-ayush.netlify.app"
+  keywords="movies, films, movie database, watchlist, movie reviews, cinema, entertainment, IMDB, popular movies, movie search"
+/>
 
 <div class="min-h-screen bg-gray-950">
   <div class="container mx-auto px-4 py-8">
