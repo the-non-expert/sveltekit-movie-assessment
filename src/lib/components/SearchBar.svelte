@@ -6,24 +6,27 @@
 
   let { onSearch, placeholder = 'Search movies...' }: Props = $props();
 
-  let searchQuery = $state('');
+  let inputValue = $state('');
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   function handleInput(event: Event) {
     const target = event.target as HTMLInputElement;
-    searchQuery = target.value;
+    inputValue = target.value;
 
     if (debounceTimer) {
       clearTimeout(debounceTimer);
     }
 
     debounceTimer = setTimeout(() => {
-      onSearch(searchQuery);
-    }, 300);
+      onSearch(inputValue);
+    }, 2000);
   }
 
   function clearSearch() {
-    searchQuery = '';
+    inputValue = '';
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
     onSearch('');
   }
 </script>
@@ -48,16 +51,16 @@
     </div>
     <input
       type="text"
-      value={searchQuery}
+      value={inputValue}
       oninput={handleInput}
       {placeholder}
-      class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+      class="w-full pl-10 pr-10 py-3 bg-gray-800 border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
       aria-label="Search movies"
     />
-    {#if searchQuery}
+    {#if inputValue}
       <button
         onclick={clearSearch}
-        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"
+        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-300 transition-colors"
         aria-label="Clear search"
       >
         <svg

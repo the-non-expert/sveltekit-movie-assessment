@@ -22,8 +22,8 @@
   }: Props = $props();
 
   const baseClasses =
-    'w-full px-4 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500';
-  const normalClasses = 'border-gray-300 focus:border-blue-500';
+    'w-full px-4 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white placeholder-gray-400';
+  const normalClasses = 'border-gray-700 focus:border-blue-500';
   const errorClasses = 'border-red-500 focus:border-red-500 focus:ring-red-500';
 </script>
 

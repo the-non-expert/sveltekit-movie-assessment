@@ -18,11 +18,11 @@
 </script>
 
 <div>
-  <h3 class="text-sm font-semibold text-gray-700 mb-3">Release Year</h3>
+  <h3 class="text-sm font-semibold text-gray-300 mb-3">Release Year</h3>
   <div class="space-y-4">
     <div class="flex items-center gap-4">
       <div class="flex-1">
-        <label for="min-year" class="block text-xs text-gray-600 mb-1">From</label>
+        <label for="min-year" class="block text-xs text-gray-400 mb-1">From</label>
         <input
           id="min-year"
           type="number"
@@ -30,11 +30,11 @@
           min="1900"
           max={maxYear}
           onchange={updateYearRange}
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div class="flex-1">
-        <label for="max-year" class="block text-xs text-gray-600 mb-1">To</label>
+        <label for="max-year" class="block text-xs text-gray-400 mb-1">To</label>
         <input
           id="max-year"
           type="number"
@@ -42,11 +42,11 @@
           min={minYear}
           max={currentYear}
           onchange={updateYearRange}
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
     </div>
-    <div class="text-xs text-gray-600 text-center">
+    <div class="text-xs text-gray-400 text-center">
       {minYear} - {maxYear}
     </div>
   </div>

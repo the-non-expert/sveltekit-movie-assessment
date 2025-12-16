@@ -28,9 +28,9 @@
 </script>
 
 <div>
-  <h3 class="text-sm font-semibold text-gray-700 mb-3">Genres</h3>
+  <h3 class="text-sm font-semibold text-gray-300 mb-3">Genres</h3>
   {#if loading}
-    <div class="flex items-center gap-2 text-gray-500">
+    <div class="flex items-center gap-2 text-gray-400">
       <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
         ></circle>
@@ -51,7 +51,7 @@
             genre.id
           )
             ? 'bg-blue-600 text-white hover:bg-blue-700'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}"
           aria-pressed={isSelected(genre.id)}
         >
           {genre.name}

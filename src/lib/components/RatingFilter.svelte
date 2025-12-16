@@ -14,7 +14,7 @@
 </script>
 
 <div>
-  <h3 class="text-sm font-semibold text-gray-700 mb-3">Minimum Rating</h3>
+  <h3 class="text-sm font-semibold text-gray-300 mb-3">Minimum Rating</h3>
   <div class="space-y-3">
     <div class="flex items-center gap-4">
       <input
@@ -35,7 +35,7 @@
         <span class="text-yellow-400">★</span>
       </div>
     </div>
-    <div class="flex justify-between text-xs text-gray-500">
+    <div class="flex justify-between text-xs text-gray-400">
       <span>0</span>
       <span>5</span>
       <span>10</span>

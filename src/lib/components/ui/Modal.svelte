@@ -50,14 +50,14 @@
     tabindex="-1"
   >
     <div
-      class="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+      class="bg-gray-900 border border-gray-800 rounded-lg shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
       role="document"
     >
-      <div class="flex items-center justify-between p-4 border-b border-gray-200">
-        <h2 id="modal-title" class="text-xl font-semibold text-gray-900">{title}</h2>
+      <div class="flex items-center justify-between p-4 border-b border-gray-800">
+        <h2 id="modal-title" class="text-xl font-semibold text-white">{title}</h2>
         <button
           onclick={close}
-          class="text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1"
+          class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1"
           aria-label="Close modal"
         >
           <svg

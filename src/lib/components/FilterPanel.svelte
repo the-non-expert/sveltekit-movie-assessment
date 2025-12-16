@@ -16,9 +16,9 @@
   }
 </script>
 
-<div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+<div class="bg-gray-900 rounded-lg shadow-xl border border-gray-800 p-4 md:p-6">
   <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+    <h2 class="text-xl font-bold text-white flex items-center gap-2">
       <svg
         class="w-6 h-6"
         fill="none"
@@ -39,7 +39,7 @@
       <Button variant="outline" onclick={resetFilters} class="text-sm">Reset</Button>
       <button
         onclick={toggleFilters}
-        class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label={showFilters ? 'Hide filters' : 'Show filters'}
         aria-expanded={showFilters}
       >
@@ -64,10 +64,10 @@
   {#if showFilters}
     <div class="space-y-6">
       <GenreFilter />
-      <div class="border-t border-gray-200 pt-6">
+      <div class="border-t border-gray-800 pt-6">
         <YearFilter />
       </div>
-      <div class="border-t border-gray-200 pt-6">
+      <div class="border-t border-gray-800 pt-6">
         <RatingFilter />
       </div>
     </div>

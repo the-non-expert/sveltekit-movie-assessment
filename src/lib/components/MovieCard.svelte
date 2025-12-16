@@ -58,13 +58,13 @@
 </script>
 
 <div
-  class="group relative bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+  class="group relative bg-gray-900 rounded-lg shadow-xl border border-gray-800 overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-blue-500/50"
   onclick={navigateToDetails}
   role="button"
   tabindex="0"
   onkeydown={(e) => e.key === 'Enter' && navigateToDetails()}
 >
-  <div class="relative aspect-[2/3] overflow-hidden bg-gray-200">
+  <div class="relative aspect-[2/3] overflow-hidden bg-gray-800">
     <img
       src={movie.posterUrl}
       alt={movie.title}
@@ -77,16 +77,16 @@
   </div>
 
   <div class="p-4">
-    <h3 class="font-semibold text-lg text-gray-900 truncate" title={movie.title}>
+    <h3 class="font-semibold text-lg text-white truncate" title={movie.title}>
       {movie.title}
     </h3>
     <div class="flex items-center justify-between mt-2">
-      <span class="text-sm text-gray-600">{movie.releaseYear}</span>
+      <span class="text-sm text-gray-400">{movie.releaseYear}</span>
       <div class="flex items-center gap-1">
         <span class="text-yellow-500 text-sm" aria-label="Rating">
           {renderStars(movie.rating)}
         </span>
-        <span class="text-sm text-gray-700 font-medium">{movie.rating.toFixed(1)}</span>
+        <span class="text-sm text-gray-300 font-medium">{movie.rating.toFixed(1)}</span>
       </div>
     </div>
   </div>

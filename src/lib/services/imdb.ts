@@ -53,6 +53,8 @@ export async function fetchPopularMovies(pageToken?: string): Promise<Movie[]> {
 
 /**
  * Search movies by query
+ * Since the API's search endpoint is not implemented (501 error),
+ * we fetch popular movies and filter client-side
  * @param query - Search term
  */
 export async function searchMovies(query: string): Promise<Movie[]> {
@@ -61,12 +63,15 @@ export async function searchMovies(query: string): Promise<Movie[]> {
   }
 
   try {
+    // Fetch a larger set of popular movies to search through
     const params = new URLSearchParams({
-      query: query,
-      limit: '20'
+      types: 'MOVIE',
+      sortBy: 'SORT_BY_POPULARITY',
+      sortOrder: 'ASC',
+      limit: '200' // Get more movies for better search results
     });
 
-    const response = await fetch(`${IMDB_BASE_URL}/search/titles?${params.toString()}`);
+    const response = await fetch(`${IMDB_BASE_URL}/titles?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`IMDB API error: ${response.statusText}`);
@@ -74,14 +79,20 @@ export async function searchMovies(query: string): Promise<Movie[]> {
 
     const data = await response.json();
 
-    if (!data.results || !Array.isArray(data.results)) {
+    if (!data.titles || !Array.isArray(data.titles)) {
       return [];
     }
 
-    return data.results.map(transformImdbTitle);
+    const allMovies = data.titles.map(transformImdbTitle);
+
+    // Filter movies client-side by search query
+    const searchLower = query.toLowerCase();
+    return allMovies.filter(movie =>
+      movie.title.toLowerCase().includes(searchLower)
+    );
   } catch (error) {
     console.error('Error searching movies:', error);
-    throw error;
+    return [];
   }
 }
 
