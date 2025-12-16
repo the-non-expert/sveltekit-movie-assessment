@@ -22,7 +22,7 @@
     event.stopPropagation();
 
     if (!auth.isAuthenticated || !auth.user) {
-      alert('Please login to add movies to your watchlist');
+      goto('/login');
       return;
     }
 

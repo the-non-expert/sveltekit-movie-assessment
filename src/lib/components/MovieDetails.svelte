@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Movie } from '$lib/types/movie';
   import { authStore, watchlistStore } from '$lib/stores';
+  import { goto } from '$app/navigation';
   import CastList from './CastList.svelte';
   import Button from './ui/Button.svelte';
 
@@ -18,7 +19,7 @@
 
   async function toggleWatchlist() {
     if (!auth.isAuthenticated || !auth.user) {
-      alert('Please login to add movies to your watchlist');
+      goto('/login');
       return;
     }
 
