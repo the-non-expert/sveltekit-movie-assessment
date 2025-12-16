@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@100;200;300;400;600;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Custom font families */
+  --font-family-bebas: 'Bebas Neue', sans-serif;
+  --font-family-outfit: 'Outfit', sans-serif;
+
+  /* Dark cinema theme colors */
+  --color-primary: #e50914;
+  --color-secondary: #f5f5f1;
+  --color-background: #141414;
+  --color-surface: #1f1f1f;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-accent: #ff0000;
+  --color-hover: #c11119;
+  --color-border: #2a2a2a;
+
+  /* Custom color palette */
+  --color-primary-50: #fef2f2;
+  --color-primary-100: #fee2e2;
+  --color-primary-200: #fecaca;
+  --color-primary-300: #fca5a5;
+  --color-primary-400: #f87171;
+  --color-primary-500: #ef4444;
+  --color-primary-600: #e50914;
+  --color-primary-700: #b91c1c;
+  --color-primary-800: #991b1b;
+  --color-primary-900: #7f1d1d;
+
+  --color-dark-50: #f9fafb;
+  --color-dark-100: #f3f4f6;
+  --color-dark-200: #e5e7eb;
+  --color-dark-300: #d1d5db;
+  --color-dark-400: #9ca3af;
+  --color-dark-500: #6b7280;
+  --color-dark-600: #4b5563;
+  --color-dark-700: #374151;
+  --color-dark-800: #1f2937;
+  --color-dark-900: #141414;
+}
+
+body {
+  font-family: var(--font-family-outfit);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-bebas);
+}
