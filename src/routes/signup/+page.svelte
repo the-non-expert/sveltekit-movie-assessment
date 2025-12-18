@@ -19,6 +19,13 @@
 
   const auth = $derived($authStore);
 
+  // Real-time validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isNameValid = $derived(name.trim().length >= 2);
+  const isEmailValid = $derived(emailRegex.test(email));
+  const isPasswordValid = $derived(password.length >= 8 && /[A-Z]/.test(password));
+  const isFormValid = $derived(isNameValid && isEmailValid && isPasswordValid);
+
   // If already authenticated, redirect to home
   $effect(() => {
     if (auth.isAuthenticated && auth.user) {
@@ -36,13 +43,27 @@
       return;
     }
 
-    if (!email.includes('@')) {
+    // Name validation
+    if (name.trim().length < 2) {
+      error = 'Name must be at least 2 characters long';
+      return;
+    }
+
+    // Email validation (RFC 5322 standard)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       error = 'Please enter a valid email address';
       return;
     }
 
-    if (password.length < 6) {
-      error = 'Password must be at least 6 characters long';
+    // Password validation
+    if (password.length < 8) {
+      error = 'Password must be at least 8 characters long';
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      error = 'Password must contain at least one uppercase letter';
       return;
     }
 
@@ -118,6 +139,9 @@
             bind:value={name}
             required={true}
           />
+          {#if name && !isNameValid}
+            <p class="mt-1 text-xs text-red-500">Name must be at least 2 characters long</p>
+          {/if}
         </div>
 
         <!-- Email Input -->
@@ -132,6 +156,9 @@
             bind:value={email}
             required={true}
           />
+          {#if email && !isEmailValid}
+            <p class="mt-1 text-xs text-red-500">Please enter a valid email address</p>
+          {/if}
         </div>
 
         <!-- Password Input -->
@@ -142,10 +169,13 @@
           <Input
             type="password"
             name="password"
-            placeholder="At least 6 characters"
+            placeholder="At least 8 characters with 1 uppercase"
             bind:value={password}
             required={true}
           />
+          {#if password && !isPasswordValid}
+            <p class="mt-1 text-xs text-red-500">Password must be at least 8 characters with 1 uppercase letter</p>
+          {/if}
         </div>
 
         <!-- Favorite Genre Select -->
@@ -173,7 +203,7 @@
         {/if}
 
         <!-- Submit Button -->
-        <Button type="submit" variant="primary" disabled={loading} class="w-full">
+        <Button type="submit" variant="primary" disabled={loading || !isFormValid} class="w-full">
           {#if loading}
             <span class="flex items-center justify-center gap-2">
               <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">

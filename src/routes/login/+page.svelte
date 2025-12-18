@@ -13,6 +13,12 @@
 
   const auth = $derived($authStore);
 
+  // Real-time validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmailValid = $derived(emailRegex.test(email));
+  const isPasswordValid = $derived(password.length >= 8 && /[A-Z]/.test(password));
+  const isFormValid = $derived(isEmailValid && isPasswordValid);
+
   // If already authenticated, redirect to home
   $effect(() => {
     if (auth.isAuthenticated && auth.user) {
@@ -30,8 +36,21 @@
       return;
     }
 
-    if (!email.includes('@')) {
+    // Email validation (RFC 5322 standard)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       error = 'Please enter a valid email address';
+      return;
+    }
+
+    // Password validation
+    if (password.length < 8) {
+      error = 'Password must be at least 8 characters long';
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      error = 'Password must contain at least one uppercase letter';
       return;
     }
 
@@ -93,6 +112,9 @@
             bind:value={email}
             required={true}
           />
+          {#if email && !isEmailValid}
+            <p class="mt-1 text-xs text-red-500">Please enter a valid email address</p>
+          {/if}
         </div>
 
         <!-- Password Input -->
@@ -107,6 +129,9 @@
             bind:value={password}
             required={true}
           />
+          {#if password && !isPasswordValid}
+            <p class="mt-1 text-xs text-red-500">Password must be at least 8 characters with 1 uppercase letter</p>
+          {/if}
         </div>
 
         <!-- Error Message -->
@@ -117,7 +142,7 @@
         {/if}
 
         <!-- Submit Button -->
-        <Button type="submit" variant="primary" disabled={loading} class="w-full">
+        <Button type="submit" variant="primary" disabled={loading || !isFormValid} class="w-full">
           {#if loading}
             <span class="flex items-center justify-center gap-2">
               <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
